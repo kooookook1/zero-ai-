@@ -1,10 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 
-if (!process.env.API_KEY) {
-    throw new Error("API_KEY environment variable not set");
+if (!import.meta.env.VITE_API_KEY) {
+    throw new Error("VITE_API_KEY environment variable not set");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
 /**
  * A utility function to introduce a delay.
@@ -63,7 +63,7 @@ export const generateVideoFromImageAndText = async (
     const downloadLink = operation.response.generatedVideos[0].video.uri;
 
     // The download link requires the API key to be appended for authentication.
-    const videoResponse = await fetch(`${downloadLink}&key=${process.env.API_KEY}`);
+    const videoResponse = await fetch(`${downloadLink}&key=${import.meta.env.VITE_API_KEY}`);
 
     if (!videoResponse.ok) {
         throw new Error(`فشل في تحميل الفيديو: ${videoResponse.statusText}`);
